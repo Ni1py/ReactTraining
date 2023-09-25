@@ -13,11 +13,17 @@
     width: 800px;
 }
 
-.post {
+.note {
     display: flex;
     padding: 15px;
     border: 2px solid teal;
     margin-top: 15px;
     justify-content: space-between;
     align-items: center;
+}
+
+.addBlock {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 20px;
 }

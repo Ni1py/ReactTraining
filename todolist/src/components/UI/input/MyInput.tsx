@@ -1,13 +1,15 @@
 import './MyInput.css'
 
 interface MyInputProps {
-    type: string;
-    placeholder: string;
+    value?: string;
+    onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    type?: string;
+    placeholder?: string;
 }
 
-const MyInput = ({type, placeholder}: MyInputProps) => {
+const MyInput = ({value, onChange, type, placeholder}: MyInputProps) => {
     return (
-        <input className='myInput' type={type} placeholder={placeholder}/>
+        <input className='myInput' value={value} onChange={onChange} type={type} placeholder={placeholder}/>
     )
 }
 

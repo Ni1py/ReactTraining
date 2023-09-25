@@ -1,35 +1,45 @@
 import { useState } from 'react';
 import './styles/App.css'
-import PostList from './components/PostList';
 import MyButton from './components/UI/button/MyButton';
 import MyInput from './components/UI/input/MyInput';
-
-export interface IPost {
-  id: number,
-  title: string,
-  body: string,
-}
+import { INote } from './types/types';
+import NotesList from './components/NotesList';
 
 const App = () => {
-  const [posts, setPosts] = useState<IPost[]>([
-    {id: 1, title: 'JavaScript', body: 'Description'},
-    {id: 2, title: 'JavaScript 2', body: 'Description'},
-    {id: 3, title: 'JavaScript 3', body: 'Description'},
-  ])
-  const [title, setTitle] = useState('')
+  const [notes, setNotes] = useState<INote[]>([])
+  const [description, setDescription] = useState('')
+  const [index, setIndex] = useState(0)
 
   const addNewPost = () => {
+    if (description != '') {
+      const newNote: INote = {
+        id: index + 1,
+        description: description,
+        done: false
+      }
+      setIndex(index + 1)
+      setNotes([...notes, newNote])
+      setDescription('')
+    }
   }
 
   return (
     <div className="App">
-        <form>
-          <MyInput type='text' placeholder='Название поста'/>
-          <MyInput type='text' placeholder='Описание поста'/>
-          <MyButton onClick={addNewPost}>Нажми</MyButton>
-          <button onClick={() => {}}></button>
+        <h1 style={{textAlign: 'center'}}>
+          Список задач
+        </h1> 
+        <form onSubmit={e => e.preventDefault()}>
+          <div className='addBlock'>
+            <MyInput 
+              value={description}
+              onChange={e => setDescription(e.target.value)}
+              type='text'
+              placeholder='Описание задачи'
+            />
+            <MyButton onClick={addNewPost}>Добавить задачу</MyButton>
+          </div>
         </form>
-        <PostList posts={posts} title='Посты про JS'/>
+        <NotesList notes={notes}/>
     </div>
   );
 }
