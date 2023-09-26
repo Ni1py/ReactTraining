@@ -1,4 +1,4 @@
-import './MyButton.css'
+import styles from  './MyButton.module.css'
 
 type MyButtonProps = {
     onClick?: () => void
@@ -11,7 +11,7 @@ function MyButton ({
 }: MyButtonProps
 ) {
     return (
-        <button className='myBtn' onClick={onClick}>
+        <button className={styles.myBtn} onClick={onClick}>
             {children}
         </button>
     )

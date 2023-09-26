@@ -1,12 +1,14 @@
 import { Note } from '../types/types'
-import { NoteCard } from './NoteCard'
+import { NoteCard } from './NoteCard/NoteCard'
 
 type NotesListProps = {
+    execute: (note: Note) => void
     remove: (note: Note) => void
     notes: Note[]
 }
 
 function NotesList ({
+    execute,
     remove,
     notes
 }: NotesListProps
@@ -14,7 +16,7 @@ function NotesList ({
     return (
         <div>
             {notes.map(note =>
-                <NoteCard remove={remove} note={note} key={note.id}/>
+                <NoteCard remove={remove} execute={execute} note={note} key={note.id}/>
             )}
         </div>
     )

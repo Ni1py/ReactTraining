@@ -1,7 +1,7 @@
 import { useState } from 'react'
-import './styles/App.css'
+import './App.css'
 import { Note } from './types/types'
-import { NoteForm } from './components/NoteForm'
+import { NoteForm } from './components/NoteForm/NoteForm'
 import { NotesList } from './components/NotesList'
 
 function App() {
@@ -15,13 +15,25 @@ function App() {
     setNotes(notes.filter(n => n.id != note.id))
   }
 
+  const executeNote = (note: Note) => {
+    setNotes(notes.map(
+      n => n.id != note.id 
+      ? n 
+      : {
+        id: note.id, 
+        description: note.description, 
+        done: !note.done
+      }
+    ))
+  }
+
   return (
-    <div className="App">
-        <h1 style={{textAlign: 'center'}}>
+    <div className="app">
+        <div className='header'>
           Список задач
-        </h1>
+        </div>
         <NoteForm create={createNote}></NoteForm>
-        <NotesList remove={removeNote} notes={notes}/>
+        <NotesList remove={removeNote} execute={executeNote} notes={notes}/>
     </div>
   );
 }
