@@ -1,47 +1,31 @@
-import { useState } from 'react';
+import { useState } from 'react'
 import './styles/App.css'
-import MyButton from './components/UI/button/MyButton';
-import MyInput from './components/UI/input/MyInput';
-import { INote } from './types/types';
-import NotesList from './components/NotesList';
+import { Note } from './types/types'
+import { NoteForm } from './components/NoteForm'
+import { NotesList } from './components/NotesList'
 
-const App = () => {
-  const [notes, setNotes] = useState<INote[]>([])
-  const [description, setDescription] = useState('')
-  const [index, setIndex] = useState(0)
+function App() {
+  const [notes, setNotes] = useState<Note[]>([])
 
-  const addNewPost = () => {
-    if (description != '') {
-      const newNote: INote = {
-        id: index + 1,
-        description: description,
-        done: false
-      }
-      setIndex(index + 1)
-      setNotes([...notes, newNote])
-      setDescription('')
-    }
+  const createNote = (newNote: Note) => {
+    setNotes([...notes, newNote])
+  }
+
+  const removeNote = (note: Note) => {
+    setNotes(notes.filter(n => n.id != note.id))
   }
 
   return (
     <div className="App">
         <h1 style={{textAlign: 'center'}}>
           Список задач
-        </h1> 
-        <form onSubmit={e => e.preventDefault()}>
-          <div className='addBlock'>
-            <MyInput 
-              value={description}
-              onChange={e => setDescription(e.target.value)}
-              type='text'
-              placeholder='Описание задачи'
-            />
-            <MyButton onClick={addNewPost}>Добавить задачу</MyButton>
-          </div>
-        </form>
-        <NotesList notes={notes}/>
+        </h1>
+        <NoteForm create={createNote}></NoteForm>
+        <NotesList remove={removeNote} notes={notes}/>
     </div>
   );
 }
 
-export default App;
+export { 
+  App,
+}

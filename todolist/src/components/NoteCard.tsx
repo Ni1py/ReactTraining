@@ -1,24 +1,31 @@
-import React from 'react';
+import { Note } from '../types/types'
+import { MyButton } from './UI/button/MyButton'
 
-interface NoteCardProps {
-    description: string;
-    done: boolean;
+type NoteCardProps = {
+    remove: (note: Note) => void
+    note: Note
 }
 
-const NoteCard = ({ description, done }: NoteCardProps) => {
+function NoteCard ({
+    remove,
+    note
+}: NoteCardProps
+) {
     return (
         <div className='note'>
             <div>
                 <input type='checkbox'/>
             </div>
             <div className='note__content'>
-                <strong>{description}</strong>
+                <strong>{note.description}</strong>
             </div>
             <div className='note__btns'>
-                <button>Удалить</button>
+                <MyButton onClick={() => remove(note)}>Удалить</MyButton>
             </div>
         </div>
     )
 }
 
-export default NoteCard
+export {
+    NoteCard,
+}

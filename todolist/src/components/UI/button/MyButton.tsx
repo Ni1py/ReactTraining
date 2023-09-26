@@ -1,11 +1,15 @@
-import './MyButton.css';
+import './MyButton.css'
 
-interface MyButtonProps {
-    onClick?: () => void;
-    children?: React.ReactNode;
+type MyButtonProps = {
+    onClick?: () => void
+    children?: React.ReactNode
 }
 
-const MyButton = ({onClick, children}: MyButtonProps) => {
+function MyButton ({
+    onClick,
+    children
+}: MyButtonProps
+) {
     return (
         <button className='myBtn' onClick={onClick}>
             {children}
@@ -13,4 +17,6 @@ const MyButton = ({onClick, children}: MyButtonProps) => {
     )
 }
 
-export default MyButton
+export { 
+    MyButton,
+}

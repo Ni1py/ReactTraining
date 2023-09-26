@@ -1,20 +1,25 @@
-import React from 'react'
-import { INote } from '../types/types';
-import NoteCard from './NoteCard';
+import { Note } from '../types/types'
+import { NoteCard } from './NoteCard'
 
-interface NotesListProps {
-    notes: INote[],
+type NotesListProps = {
+    remove: (note: Note) => void
+    notes: Note[]
 }
 
-const NotesList = ({notes}: NotesListProps) => {
-
+function NotesList ({
+    remove,
+    notes
+}: NotesListProps
+) {
     return (
         <div>
             {notes.map(note =>
-                <NoteCard description={note.description} done={note.done} key={note.id}/>
+                <NoteCard remove={remove} note={note} key={note.id}/>
             )}
         </div>
     )
 }
 
-export default NotesList
+export { 
+    NotesList,
+}
