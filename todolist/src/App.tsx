@@ -1,26 +1,43 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useState } from 'react'
+import './App.css'
+import { Note } from './types/types'
+import { NoteForm } from './components/NoteForm/NoteForm'
+import { NotesList } from './components/NotesList'
 
 function App() {
+  const [notes, setNotes] = useState<Note[]>([])
+
+  const createNote = (newNote: Note) => {
+    setNotes([...notes, newNote])
+  }
+
+  const removeNote = (note: Note) => {
+    setNotes(notes.filter(n => n.id != note.id))
+  }
+
+  const executeNote = (note: Note) => {
+    setNotes(notes.map(
+      n => n.id != note.id 
+      ? n 
+      : {
+        id: note.id, 
+        description: note.description, 
+        done: !note.done
+      }
+    ))
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app">
+        <div className='header'>
+          Список задач
+        </div>
+        <NoteForm create={createNote}></NoteForm>
+        <NotesList remove={removeNote} execute={executeNote} notes={notes}/>
     </div>
   );
 }
 
-export default App;
+export { 
+  App,
+}
