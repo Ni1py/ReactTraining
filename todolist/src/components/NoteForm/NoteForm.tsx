@@ -29,16 +29,14 @@ function NoteForm({
     }
 
     return (
-        <form onSubmit={e => e.preventDefault()}>
-            <div className={styles.addBlock}>
-                <MyInput 
-                    value={description}
-                    onChange={e => setDescription(e.target.value)}
-                    placeholder='Описание задачи'
-                />
-                <MyButton onClick={addNewPost}>Добавить задачу</MyButton>
-            </div>
-        </form>
+        <div className={styles.addBlock}>
+            <MyInput 
+                value={description}
+                onChange={e => setDescription(e.target.value)}
+                placeholder='Описание задачи'
+            />
+            <MyButton onClick={addNewPost}>Добавить задачу</MyButton>
+        </div>
     )
 }
 
